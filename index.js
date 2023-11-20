@@ -1,4 +1,5 @@
 var form = document.querySelector("#form");
+var flag = 1;
 form.addEventListener("submit", function(event) {
   event.preventDefault();
   var name = document.querySelector("#card-name").value;
@@ -15,29 +16,35 @@ form.addEventListener("submit", function(event) {
   if (name === "") {
     name_error.innerHTML = "Enter Name";
     document.querySelector("#card-name").style.borderColor = "red";
+    flag=0;
   }
   if (number === "") {
     number_error.innerHTML = "Enter number";
     document.querySelector("#card-number").style.borderColor = "red";
+    flag=0;
   }
   if (month === "" || year === "") {
     date_error.innerHTML = "Cant'be blank";
     document.querySelector("#year").style.borderColor = "red";
     document.querySelector("#month").style.borderColor = "red";
+    flag=0;
   }
   if (cvv === "") {
     cv_error.innerHTML = "Cant'be blank";
     document.getElementById("cvc").style.borderColor = "red";
+    flag=0;
   }
   /* for checking card number*/
   var number_length = number.length;
   console.log(number_length);
   if (number_length < 16 || number_length > 16) {
     number_error.innerHTML = "Enter valid number";
+    flag=0;
   }
   for (var i = 0; i < number_length; i++) {
     if (number[i] < 0 || number[i] > 9) {
       number_error.innerHTML = "Wrong format,numbers only";
+      flag=0;
     }
   }
   /*for checking date and month */
@@ -45,17 +52,21 @@ form.addEventListener("submit", function(event) {
   var year_len = year.length;
   if (month_len > 2 || month_len < 2) {
     date_error.innerHTML = "Enter valid month";
+    flag=0;
   }
   if (month[0] > 1 || month[1] > 9) {
     date_error.innerHTML = "Enter valid month";
+    flag=0;
   }
   if (year_len > 2 || year_len < 2) {
     date_error.innerHTML = "Enter valid year";
+    flag=0;
   }
   /*for checking cvv number */
   var cvv_len = cvv.length;
   if (cvv_len > 3 || cvv_len < 3) {
     cv_error.innerHTML = "Enter valid cvc Number";
+    flag=0;
   }
   //changing number
   var card_number_card = document.querySelector(".card-number");
@@ -86,7 +97,7 @@ form.addEventListener("submit", function(event) {
   
 
   //adding thank you
-
+  if(flag===1){
   var element = document.querySelector(".main-container");
   element.classList.add("main-hidden");
   console.log("hidden");
@@ -94,6 +105,7 @@ form.addEventListener("submit", function(event) {
   var rem_element = document.querySelector(".thankyou");
   rem_element.classList.remove("thankyou-hidden");
   console.log("hidden-again");
+  }
   
 });
   
